@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Random password generator</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+	<script type="text/javascript" src="dictionary.js"></script>
+</head>
+<body>
+<div id="app">
+	<div class="cardContainer">
+		<div class="titleContainer">
+			Password Generator
+		</div>
+		<div class="generateButtonContainer">
+			<button class="generateButton">click generate</button>
+		</div>
+		<div class="lengthTitleContainer">
+			<label class="lengthTitle">length:</label> {{ length }}
+			<div class="lengthInput">
+				<div class="min">4</div>
+				<input type="range" min="4" max="32" value="16" class="range" v-model="length">
+				<div class="max">32</div>
+			</div>
+		</div>
+		<div class="settingTitleContainer">
+			<label class="settingTitle">settings</label>
+			<div class="includeUppercaseContainer">
+				<label class="underTitleSetting">Include Uppercase</label> <label class="inputCheckBoxContainer"><input type="checkbox" id="uppercaseIncluded"></label>
+			</div>
+			<div class="includeUppercaseContainer">
+				<label class="underTitleSetting">Include Lowercase</label> <label class="inputCheckBoxContainer"><input type="checkbox" id="includedLowercase"></label>
+			</div>
+			<div class="includeUppercaseContainer">
+				<label class="underTitleSetting">Include Numbers</label> <label class="inputCheckBoxContainer"><input type="checkbox" id="includedNumbers"></label>
+			</div>
+			<div class="includeUppercaseContainer">
+				<label class="underTitleSetting">Include Symbols</label> <label class="inputCheckBoxContainer"><input type="checkbox" id="includedSymbols"></label>
+			</div>
+		</div>
+		<div class="generatePasswordButtonContainer">
+			<button class="generatePasswordButton" v-on:click="generatePassword(length)">generate password</button>
+		</div>
+		<div class="passwordContainer">
+			<label class="password" id="password">
+				your generated password
+			</label>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	let app = new Vue({
+		el: "#app",
+		data: {
+			length: "16"
+		},
+		methods:{
+			generatePassword: function(length){
+				// recuper if checkbox is checked
+				let uppercaseChecked = document.getElementById("uppercaseIncluded").checked;
+				let lowercaseChecked = document.getElementById("includedLowercase").checked;
+				let numbersChecked = document.getElementById("includedNumbers").checked;
+				let symbolsChecked = document.getElementById("includedSymbols").checked;
+				let password = "";
+				let compteur = 0;
+				if (uppercaseChecked == true && lowercaseChecked == false && numbersChecked == false && symbolsChecked == false) {
+					for (let i = 0; i < length; i++) {
+						let randomUppercase = uppercase[Math.floor(Math.random() * uppercase.length)];
+						password = password + randomUppercase;
+						console.log("random choose:", randomUppercase);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == false && lowercaseChecked == true && numbersChecked == false && symbolsChecked == false){
+					for (let i = 0; i < length; i++) {
+						let randomLowercase = lowercase[Math.floor(Math.random() * lowercase.length)];
+						password = password + randomLowercase;
+						console.log("random choose:", randomLowercase);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == false && lowercaseChecked == false && numbersChecked == true && symbolsChecked == false) {
+					for (let i = 0; i < length; i++) {
+						let randomNumbers = numbers[Math.floor(Math.random() * numbers.length)];
+						password = password + randomNumbers;
+						console.log("choose random:", randomNumbers);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == false && lowercaseChecked == false && numbersChecked == false && symbolsChecked == true) {
+					for (let i = 0; i < length; i++) {
+						let randomSymbols = symbols[Math.floor(Math.random() * symbols.length)];
+						password = password + randomSymbols;
+						console.log("choose random:", randomSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == true && lowercaseChecked == true && numbersChecked == false && symbolsChecked == false) {
+					for (let i = 0; i < length; i++) {
+						let randomUppercaseLowercase = uppercaseLowercase[Math.floor(Math.random() * uppercaseLowercase.length)];
+						password = password + randomUppercaseLowercase;
+						console.log("choose random:", randomUppercaseLowercase);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == true && lowercaseChecked == false && numbersChecked == true && symbolsChecked == false) {
+					for (let i = 0; i < length; i++) {
+						let randomUppercaseNumbers = uppercaseNumbers[Math.floor(Math.random() * uppercaseNumbers.length)];
+						password = password + randomUppercaseNumbers;
+						console.log("choose random:", randomUppercaseNumbers);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == true && lowercaseChecked == false && numbersChecked == false && symbolsChecked == true) {
+					for (var i = 0; i < length; i++) {
+						let randomUppercaseSymbols = uppercaseSymbol[Math.floor(Math.random() * uppercaseSymbol.length)];
+						password = password + randomUppercaseSymbols;
+						console.log("choose random:", randomUppercaseSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == true && lowercaseChecked == true && numbersChecked == true && symbolsChecked == false) {
+					for (var i = 0; i < length; i++) {
+						let randomUppercaseLowercaseNumbers = uppercaseLowercaseNumbers[Math.floor(Math.random() * uppercaseLowercaseNumbers.length)];
+						password = password + randomUppercaseLowercaseNumbers;
+						console.log("choose random:", randomUppercaseLowercaseNumbers);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == true && lowercaseChecked == true && numbersChecked == false && symbolsChecked == true) {
+					for (var i = 0; i < length; i++) {
+						let randomUppercaseLowercaseSymbols = uppercaseLowercaseSymbols[Math.floor(Math.random() * uppercaseLowercaseSymbols.length)];
+						password = password + randomUppercaseLowercaseSymbols;
+						console.log("choose random:", randomUppercaseLowercaseSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == true && lowercaseChecked == true && numbersChecked == true && symbolsChecked == true) {
+					for (var i = 0; i < length; i++) {
+						let randomUppercaseLowercaseNumbersSymbols = uppercaseLowercaseNumbersSymbols[Math.floor(Math.random() * uppercaseLowercaseNumbersSymbols.length)];
+						password = password + randomUppercaseLowercaseNumbersSymbols;
+						console.log("choose random:", randomUppercaseLowercaseNumbersSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == false && lowercaseChecked == true && numbersChecked == true && symbolsChecked == false) {
+					for (var i = 0; i < length; i++) {
+						let randomLowercaseNumbers = lowercaseNumbers[Math.floor(Math.random() * lowercaseNumbers.length)];
+						password = password + randomLowercaseNumbers;
+						console.log("choose random:", randomLowercaseNumbers);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == false && lowercaseChecked == true && numbersChecked == false && symbolsChecked == true) {
+					for (var i = 0; i < length; i++) {
+						let randomLowercaseSymbols = lowercaseSymbols[Math.floor(Math.random() * lowercaseSymbols.length)];
+						password = password + randomLowercaseSymbols;
+						console.log("choose random:", randomLowercaseSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == false && lowercaseChecked == true && numbersChecked == true && symbolsChecked == true) {
+					for (var i = 0; i < length; i++) {
+						let randomLowercaseNumbersSymbols = lowercaseNumbersSymbols[Math.floor(Math.random() * lowercaseNumbersSymbols.length)];
+						password = password + randomLowercaseNumbersSymbols;
+						console.log("choose random:", randomLowercaseNumbersSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == false && lowercaseChecked == false && numbersChecked == true && symbolsChecked == true) {
+					for (var i = 0; i < length; i++) {
+						let randomNumbersSymbols = numbersSymbols[Math.floor(Math.random() * numbersSymbols.length)];
+						password = password + randomNumbersSymbols;
+						console.log("choose random:", randomNumbersSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}else if (uppercaseChecked == true && lowercaseChecked == false && numbersChecked == true && symbolsChecked == true) {
+					for (var i = 0; i < length; i++) {
+						let randomUppercaseNumbersSymbols = uppercaseNumbersSymbols[Math.floor(Math.random() * uppercaseNumbersSymbols.length)];
+						password = password + randomUppercaseNumbersSymbols;
+						console.log("choose random:", randomUppercaseNumbersSymbols);
+					}
+					document.getElementById("password").innerHTML = password;
+				}
+			}
+		}
+	})
+</script>
+</body>
+</html>
